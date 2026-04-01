@@ -30,14 +30,15 @@ jobs:
         run: |
           vendor/bin/phpunit --color tests/
         env:
-          # Đoạn này tui đã map chuẩn theo tên Secret ní đặt lúc nãy:
+          # Đã chỉnh lại theo đúng tên "OC" của ní:
           OCI_REGION: ${{ secrets.OCI_REGION }}
           OCI_USER_ID: ${{ secrets.OCI_USER_OCID }}
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_OC }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
           OCI_SSH_PRIVATE_KEY_CONTENTS: ${{ secrets.OCI_SSH_PRIVATE_KEY_CONTENTS }}
+          OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
           
-          # Mấy cái dưới này nếu ní chưa tạo Secret thì nó sẽ lấy mặc định:
+          # Mấy cái thông số mặc định cho Singapore:
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN || 'ap-singapore-1-AD-1' }}
           OCI_SHAPE: ${{ secrets.OCI_SHAPE || 'VM.Standard.A1.Flex' }}
           OCI_OCPUS: ${{ secrets.OCI_OCPUS || 4 }}

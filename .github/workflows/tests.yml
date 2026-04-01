@@ -26,19 +26,25 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-progress
         
+      # Bước này là để tạo cái file chìa khóa mà con bot nó đòi nè ní
+      - name: Create Private Key File
+        run: |
+          echo "${{ secrets.OCI_SSH_PRIVATE_KEY_CONTENTS }}" > private_key.pem
+          chmod 600 private_key.pem
+
       - name: Run test suite
         run: |
           vendor/bin/phpunit --color tests/
         env:
-          # Đã chỉnh lại theo đúng tên "OC" của ní:
+          # Đã chỉnh chuẩn theo tên Secrets của ní (có cái "OC" nè)
           OCI_REGION: ${{ secrets.OCI_REGION }}
           OCI_USER_ID: ${{ secrets.OCI_USER_OCID }}
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_OC }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
-          OCI_SSH_PRIVATE_KEY_CONTENTS: ${{ secrets.OCI_SSH_PRIVATE_KEY_CONTENTS }}
+          OCI_PRIVATE_KEY_FILENAME: ./private_key.pem
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
           
-          # Mấy cái thông số mặc định cho Singapore:
+          # Cấu hình mặc định cho Singapore
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN || 'ap-singapore-1-AD-1' }}
           OCI_SHAPE: ${{ secrets.OCI_SHAPE || 'VM.Standard.A1.Flex' }}
           OCI_OCPUS: ${{ secrets.OCI_OCPUS || 4 }}

@@ -33,7 +33,7 @@ jobs:
           # Đoạn này tui đã map chuẩn theo tên Secret ní đặt lúc nãy:
           OCI_REGION: ${{ secrets.OCI_REGION }}
           OCI_USER_ID: ${{ secrets.OCI_USER_OCID }}
-          OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_OCID }}
+          OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_OC }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
           OCI_SSH_PRIVATE_KEY_CONTENTS: ${{ secrets.OCI_SSH_PRIVATE_KEY_CONTENTS }}
           

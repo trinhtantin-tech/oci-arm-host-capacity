@@ -1,9 +1,9 @@
-name: Hunt_Oracle_ARM
+name: Hunt_Oracle_ARM_Final
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *' # 15 phút đấm 1 phát cho đỡ bị khóa ní nhé
+    - cron: '*/20 * * * *' # 20 phút đấm 1 phát là đẹp nhất để né rate limit
   push:
     branches: [ main ]
 
@@ -23,7 +23,9 @@ jobs:
         
       - name: Create Private Key File
         run: |
-          echo "${{ secrets.OCI_SSH_PRIVATE_KEY_CONTENTS }}" > private_key.pem
+          cat <<EOF > private_key.pem
+          ${{ secrets.OCI_SSH_PRIVATE_KEY_CONTENTS }}
+          EOF
           chmod 600 private_key.pem
 
       - name: Run Hunt Bot
@@ -36,7 +38,6 @@ jobs:
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
           OCI_PRIVATE_KEY_FILENAME: ./private_key.pem
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
-          # Cấu hình "xe con" 2/18 cho dễ lọt khe Singapore nè
           OCI_AVAILABILITY_DOMAIN: "ap-singapore-1-AD-1"
           OCI_SHAPE: "VM.Standard.A1.Flex"
           OCI_OCPUS: 2
